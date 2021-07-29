@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-1 col-md-1 col-sm-1"></div>
+    <div class="col-10 col-md-10 col-sm-10">
+        <ul class="list-group pb-2">
+            <li class="list-group-item d-flex justify-content-between align-items-center list_theme" ng-repeat="movie in searchResults">
+                <div class="media">
+                    <div class="image-parent media-left">
+                        <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" class="img-fluid circular_image" >
+                    </div>
+                    <div class="media-body pl-4">
+                        <h4 class="media-heading"><a>{{ movie.title }}</a></h4>
+                        <p class="spara">
+                            <strong>Overview :</strong> {{ movie.overview }}<br>
+                            <strong>Rating :  {{ movie.vote_average }}</strong><br>
+                            <strong>Genres :</strong> Action,Adventure,Sci-Fi <br>
+                            <strong>Release Date: </strong> {{ movie.release_date }}
+							<button class="btn btn-primary" href="watchlist.html" ng-click="addToWishlist(movie)"> + Add to List</button>
+                        </p>
+                        <strong>{{ item.title }}</strong>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

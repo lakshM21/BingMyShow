@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-1 col-md-1 col-sm-1"></div>
+    <div class="col-10 col-md-10 col-sm-10">
+        <ul class="list-group pb-2">
+            <li class="list-group-item d-flex justify-content-between align-items-center list_theme" ng-repeat="show in searchResults">
+                <div class="media">
+                    <div class="image-parent media-left">
+                        <img src="https://image.tmdb.org/t/p/w500{{ show.poster_path }}" class="img-fluid circular_image" >
+                    </div>
+                    <div class="media-body pl-4">
+                        <h4 class="media-heading"><a>{{ show.name }}</a></h4>
+                        <p class="spara">
+                            <strong>Overview :</strong> {{ show.overview }}<br>
+                            <strong>Rating :  {{ show.vote_average }}</strong><br>
+                            <strong>Genres :</strong> Action,Adventure,Sci-Fi <br>
+                            <strong>Release Date: </strong> {{ show.first_air_date }}
+							<button>+ Add to Wishlist</button>
+                        </p>
+                        <strong>{{ item.original_name }}</strong>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

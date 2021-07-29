@@ -1,0 +1,9 @@
+<div class="card mb-2" >
+    <!--we are adding data to html elements using data binding -->
+    <img class="card-img-top" src="{{ movie.imageSrc }}"
+    alt="Card image cap">
+    <div class="card-body">
+    <h4 class="card-title">{{ movie.title }}</h4>
+    <button class="btn btn-primary" href="watchlist.html" ng-click="addToWishlist(movie)">+ Add to WatchList</button>
+    </div>
+</div>

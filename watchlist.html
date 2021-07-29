@@ -1,0 +1,267 @@
+<html>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <!-- <link rel="stylesheet" href="css/materialize.min.css"> -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <script src="js/jquery-3.2.1.slim.min.js"></script>
+        <script src="./js/bootstrap.min.js"></script>
+        <script src="./js/popper.min.js"></script>
+        <script src="./js/jquery-3.5.1.min.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+        <script src="./js/header-footer.js"></script> 
+        <script src="./js/angular.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="watchlist.css">
+        <script>
+            var app = angular.module('wishlist', []);
+
+            app.controller('header', function($rootScope, $scope, $http){
+              $http.get("http://localhost/BingMyShow%20-%20ApiImplentation/validateLogin.php").then(function(data){
+                $scope.userData = data.data;
+                $scope.user = data.data.user;
+                $scope.userId = data.data.userId;
+                console.log($scope.user);
+                var userId = $scope.userId;
+                $rootScope.$broadcast('passIdCtrl', userId);
+                if($scope.user == null){
+                  $scope.isLoggedIn = false;
+                }else{
+                  $scope.isLoggedIn = true;
+                }
+                console.log($scope.isLoggedIn);
+              });
+            });
+
+            app.controller('wishlistRecord', function($rootScope, $scope, $http){
+                $scope.vlist = [];
+                console.log("angular")
+
+                var queryString = decodeURIComponent(window.location.search);
+                queryString = queryString.substring(1);
+                var queries = queryString.split("&");
+                var objtitle = queries[0];
+                var objImgSrc = queries[1];
+                $scope.title = objtitle;
+                $scope.imgUrl = objImgSrc;
+
+                
+                $scope.$on('passIdCtrl', function(event, value){
+                    $scope.userId = value;
+                    console.log("userId from watchlistRecord");
+                    console.log($scope.userId);
+                    if($scope.userId != null){
+                        var userObj = {
+                            "userId" : $scope.userId
+                        };
+                        var req = {
+                            method : "POST",
+                            url : "http://localhost/BingMyShow%20-%20ApiImplentation/getContent.php",
+                            data : userObj
+                        };
+                        console.log("init func");
+                        $http(req).then(function getContentSuccess(response){
+                            console.log(response.data);
+                            $scope.vlist = response.data.result;
+                            console.log($scope.vlist);
+                        });
+
+                    }else{
+						swal("Alert", "Please Login before making WishList", "info");
+					}
+                })
+
+                
+
+                $scope.add = function(){
+                    //var id = $scope.vlist.length + 1;
+                    var obj = {
+                        "title": $scope.title,
+                        "imgUrl" : $scope.imgUrl,
+                        "userId" : $scope.userId
+                    };
+					console.log(obj);
+                    console.log($scope.vlist);
+                    var isEmpty = function isEmpty(obj) {
+                        for(var key in obj) {
+                            if(obj.hasOwnProperty(key))
+                                return false;
+                        }
+                        return true;
+                    }
+                    if( obj['title'] == '' || obj['imgUrl'] == ''){
+						swal("Error", "Please enter movie title and image url", "error");
+                        console.log("Object is empty");
+                    }else{
+                        if($scope.userId != null){
+							$scope.obj_title = obj['title']
+							$scope.obj_title = $scope.obj_title.replace("'", " ");
+							obj['title'] = $scope.obj_title;
+							console.log(obj['title']);
+                            var req1 = {
+                                method : "POST",
+                                url : "http://localhost/BingMyShow%20-%20ApiImplentation/insertContent.php",
+                                data : obj
+                            };
+							console.log(obj);
+							console.log(req1);
+
+                            $http(req1).then(function insertContentSuccess(response){
+								console.log(response);
+                                console.log("Inserted SuccessFully");
+                                var userObj = {
+                                    "userId" : $scope.userId
+                                };
+                                var req = {
+                                    method : "POST",
+                                    url : "http://localhost/BingMyShow%20-%20ApiImplentation/getContent.php",
+                                    data : userObj
+                                };
+                                $http(req).then(function getContentSuccess(response){
+                                    $scope.vlist = response.data.result;
+                                });
+                            },function myError(response){
+                                console.log("Inser Not Done..")
+                            });
+                        }else{
+							swal("Error", "Please Login before making WishList", "error");
+						} 
+                    }                    
+                }
+
+                $scope.onDelete = function(id){
+                    console.log(id);
+                    var req = {
+                        method : "POST",
+                        url : "http://localhost/BingMyShow%20-%20ApiImplentation/deleteRecord.php",
+                        data : id
+                    };
+                    $http(req).then(function deleteSuccess(response){
+                        console.log("Delete SuccessFully");
+                        var userObj = {
+                            "userId" : $scope.userId
+                        };
+                        var req = {
+                            method : "POST",
+                            url : "http://localhost/BingMyShow%20-%20ApiImplentation/getContent.php",
+                            data : userObj
+                        };
+                        $http(req).then(function getContentSuccess(response){
+                            $scope.vlist = response.data.result;
+                        });
+                    });
+                }
+				
+				$scope.downloadList = function () {
+					html2canvas(document.getElementById('myList'), {
+						onrendered: function (canvas) {
+							var data = canvas.toDataURL();
+							var docDefinition = {
+								content: [{
+									image: data,
+									width: 500
+								}]
+							};
+							pdfMake.createPdf(docDefinition).download("MovieList.pdf");
+						}
+					});
+				}
+
+                $scope.clear = function(){
+                    $scope.title = "";
+                    $scope.imgUrl = "";
+                }
+            });
+
+        </script>
+    </head>
+    <body ng-app="wishlist">
+        <div ng-controller="header">
+            <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">BingMyShow</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link " href="index.html">Home <span class="sr-only"></span></a>
+						</li>
+						<li class="nav-item ">
+							<a class="nav-link" href="movies.html">Movies <span class="sr-only"></span></a>
+						</li>
+						<li class="nav-item ">
+							<a class="nav-link" href="shows.html">Shows <span class="sr-only">(current)</span></a>
+						</li>   
+						<li class="nav-item active">
+							<a class="nav-link" href="watchlist.html">WatchList+</a>
+						</li>
+					</ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li ng-if="isLoggedIn" class="nav-item active">
+                            <span class="nav-link">Welcome {{ user }} | </span>
+                        </li>
+                        <li ng-if="!isLoggedIn" class="nav-item active">
+                            <a class="nav-link" href="auth.html">Login</a>
+                        </li>
+                        <li ng-if="isLoggedIn" class="nav-item active">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <hr>
+        <div class="container" ng-controller="wishlistRecord">
+            <div class="row">
+                <div class="col-sm-10 col-lg-10">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Title</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="exampleInputEmail1" 
+                                aria-describedby="emailHelp"
+                                ng-model="title">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">ImageUrl</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="exampleInputPassword1"
+                                ng-model="imgUrl">
+                        </div>
+                        <button type="button" class="btn btn-primary" ng-click="add()">+ Add</button>
+                        <button type="button" class="btn btn-primary" ng-click="clear()">Clear</button>
+                        <button type="button" class="btn btn-success" ng-click="downloadList()">Download your List</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row" id="myList">
+                <div class="col-10 col-sm-10 col-lg-10">
+                    <h6 class="text-muted">Your WishList</h6> 
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center" ng-repeat="item in vlist">
+                            <strong>{{ item.title }}</strong>    
+                            <div class="image-parent ml-auto">
+                                <img src="{{ item.imgUrl }}" class="img-fluid" alt="quixote">
+                            </div>
+                            <div>
+                                <button class="btn" type="button" ng-click="onDelete(item.id)"><i class="fa fa-trash-o" style="font-size:24px"></i></button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <!-- Footer -->
+        <div ng-include="'footer.html'"></div>    
+    </body>
+</html>

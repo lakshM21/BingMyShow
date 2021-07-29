@@ -1,0 +1,199 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="styles.css">
+		<script src="./js/jquery-3.5.1.min.js"></script> 
+		<script src="./js/bootstrap.min.js"></script>
+        <script src="./js/popper.min.js"></script>
+		<script src="./js/jquery-3.5.1.min.js"></script>
+        <script src="./js/angular.min.js"></script>
+		<script src="https://apis.google.com/js/platform.js" async defer></script>
+		<meta name="google-signin-client_id" content="1068770737159-lm8ctd6gehdrvp4h6hs26gej4m1r24e4.apps.googleusercontent.com">
+		<script>
+
+			function onSignIn(googleUser) {
+				var profile = googleUser.getBasicProfile();
+				console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+				console.log('Name: ' + profile.getName());
+				console.log('Image URL: ' + profile.getImageUrl());
+				console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+				window.location = "./index.html";
+			}
+
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function () {
+				console.log('User signed out.');
+				});
+			}
+
+			var app = angular.module('authPage', []);
+
+
+			app.controller('loginReg', function($scope, $http){
+				$scope.optionText = "Switch to Signup";
+				$scope.authname = "Sign In";
+				$scope.data={};
+				$scope.isRegForm = false;
+				$scope.onSwitch = function(){
+					if($scope.authname == "Sign Up" ){
+						$scope.authname = "Sign In";
+					}else {
+						$scope.authname = "Sign Up";
+					}
+					$scope.isRegForm = !$scope.isRegForm;
+					$scope.optionText = "Switch to Login";
+				}
+
+				var vm = this;
+
+
+				$scope.onSignUp = function(){
+					var obj = {
+						"username" : $scope.data.rusername,
+						"password" : $scope.data.rpass,
+						"email" : $scope.data.remail
+					};
+					console.log(obj)
+
+					var req = {
+						method : "POST",
+						url : "http://localhost/BingMyShow%20-%20ApiImplentation/signup.php",
+						data : obj
+					};
+
+					$http(req).then(function signUpsucess(response){
+						console.log("User Signed Up Succesfully");
+						console.log(response);
+					},function signUpError(response){
+						console.log("User Signed Up Failed");
+					}); 
+
+					$scope.data.rpass = "";
+					$scope.data.remail = "";
+					$scope.data.rusername = "";
+
+					window.location = "./auth.html";
+				};
+
+				$scope.onLogin = function(){
+					var obj = {
+						"username" : $scope.data.lusername,
+						"password" : $scope.data.lpass
+					};
+					console.log(obj);
+
+					var req = {
+						method : "POST",
+						url : "http://localhost/BingMyShow%20-%20ApiImplentation/login.php",
+						data : obj
+					};
+
+					$http(req).then(function loginSuccess(response){
+						console.log("User Exists Login Succesfull");
+						console.log(response.data);
+					},function loginError(response){
+						console.log("Login Failed")
+					});
+
+					$scope.data.lusername = "";
+					$scope.data.lpass = "";
+
+					window.history.back();
+				}
+
+			});
+		</script>
+	</head>
+	<body ng-app="authPage">
+		<div>
+			<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+				<a class="navbar-brand" href="#">BingMyShow</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item">
+							<a class="nav-link" href="index.html">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="movies.html">Home</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="shows.html">Shows</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="watchlist.html">WatchList+</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+      	</div>
+		<hr>
+		<div class="container" ng-controller="loginReg">
+			<div class="row">
+				<div class="col-4 col-md-4 col-sm-4"></div>
+				<div class="col-4 col-md-4 col-sm-4">
+					<h3 ng-bind="authname"></h3>
+					<form>
+						<!-- Login Form -->
+                      <div ng-if="!isRegForm">
+						<div class="form-group">
+							<label for="lusername">Username :</label>
+							<input 
+								type="text" 
+								class="form-control" 
+								id="lusername" 
+								ng-model="data.lusername" >
+						</div>
+						<div class="form-group">
+							<label for="lpass">Password :</label>
+							<input 
+								type="password" 
+								class="form-control" 
+								id="lpass" 
+								ng-model="data.lpass"
+								>
+						</div><br>
+					  </div>
+					  <!-- Signup Form -->
+                      <div ng-if="isRegForm">
+						<div class="form-group">
+							<label for="remail">Email :</label>
+							<input 
+								type="email" 
+								class="form-control" 
+								id="remail" 
+								ng-model="data.remail"
+								>
+						</div>
+						<div class="form-group">
+							<label for="rusername">Username :</label>
+							<input 
+								type="text" 
+								class="form-control" 
+								id="rusername"  
+								ng-model="data.rusername"
+								>
+						</div>
+						<div class="form-group">
+							<label for="rpass">Password :</label>
+							<input 
+								type="password" 
+								class="form-control" 
+								id="rpass"  
+								ng-model="data.rpass"
+								>
+						</div><br>
+					  </div>
+                      <button ng-if="!isRegForm"  type="button" ng-click="onLogin()" class="btn btn-primary">Login</button>
+                      <button ng-if="isRegForm" type="button" ng-click="onSignUp()" class="btn btn-success">Sign Up</button>
+					  <button class="btn btn-dark" type="button" ng-click="onSwitch()" ng-bind="optionText"></button>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
