@@ -1,0 +1,76 @@
+{
+    "Slide1" : [
+            {
+                "id": 1,
+                "imageSrc": "./images/forrestgump.jpg",
+                "title": "Forrest Gump"
+            },
+            {
+                "id": 2,
+                "imageSrc": "./images/inception.jpg",
+                "title": "Inception"
+            },
+            {
+                "id": 3,
+                "imageSrc": "./images/matrix.jpg",
+                "title": "Matrix"
+            },
+            {
+                "id": 4,
+                "imageSrc": "./images/interstellar.jpg",
+                "title": "Interstellar"
+            }  
+        
+    ],
+    "Slide2" : [
+        
+                {
+                    "id": 5,
+                    "imageSrc": "./images/3idiots.jpg",
+                    "title": "3 Idiots"
+                },
+                {
+                    "id": 6,
+                    "imageSrc": "./images/the-pursuit-of-happiness.jpg",
+                    "title": "The Pursuit of Happiness"
+                },
+                {
+                    "id": 7,
+                    "imageSrc": "./images/andhadhun.jpg",
+                    "title": "Andhaadhun"
+                },
+                {
+                    "id": 8,
+                    "imageSrc": "./images/chhichhore.jpg",
+                    "title": "Chhichhore"
+                }
+         
+        
+    ],
+    "Slide3" : [
+        
+                {
+                    "id": 9,
+                    "imageSrc": "./images/Star-Wars.jpg",
+                    "title": "Star Wars - The Rise of the SkyWalker"
+                },
+                {
+                    "id": 10,
+                    "imageSrc": "./images/avengers-endgame.jpg",
+                    "title": "Avengers Endgame"
+                },
+                {
+                    "id": 11,
+                    "imageSrc": "./images/harrypotter.jpg",
+                    "title": "Harry Potter - The Prisonar of Askaban"
+                },
+                {
+                    "id": 12,
+                    "imageSrc": "./images/gangs.jpg",
+                    "title": "Gangs of Wasseypur"
+                }
+          
+        
+    ]
+    
+}

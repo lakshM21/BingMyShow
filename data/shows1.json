@@ -1,0 +1,76 @@
+{
+    "Slide1" : [
+            {
+                "id": 1,
+                "imageSrc": "./images/got.jpg",
+                "title": "Game of Thrones"
+            },
+            {
+                "id": 2,
+                "imageSrc": "./images/sacred-games.jpg",
+                "title": "Sacred Games"
+            },
+            {
+                "id": 3,
+                "imageSrc": "./images/friends.jpg",
+                "title": "FRIENDS"
+            },
+            {
+                "id": 4,
+                "imageSrc": "./images/strangert.jpg",
+                "title": "Stranger Things"
+            }  
+        
+    ],
+    "Slide2" : [
+        
+                {
+                    "id": 5,
+                    "imageSrc": "./images/narcos.jpg",
+                    "title": "Narcos"
+                },
+                {
+                    "id": 6,
+                    "imageSrc": "./images/ricknmorty.jpg",
+                    "title": "Rick and Morty"
+                },
+                {
+                    "id": 7,
+                    "imageSrc": "./images/breaking-bad.jpg",
+                    "title": "Breaking Bad"
+                },
+                {
+                    "id": 8,
+                    "imageSrc": "./images/chernobyl.jpg",
+                    "title": "Chernobyl"
+                }
+         
+        
+    ],
+    "Slide3" : [
+        
+                {
+                    "id": 9,
+                    "imageSrc": "./images/deathnote.jpg",
+                    "title": "DeathNote"
+                },
+                {
+                    "id": 10,
+                    "imageSrc": "./images/blackmirror.jpeg",
+                    "title": "Black Mirror"
+                },
+                {
+                    "id": 11,
+                    "imageSrc": "./images/mirzapur.jpeg",
+                    "title": "Mirzapur"
+                },
+                {
+                    "id": 12,
+                    "imageSrc": "./images/sherlok.jpg",
+                    "title": "Sherlok"
+                }
+          
+        
+    ]
+    
+}

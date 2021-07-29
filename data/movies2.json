@@ -1,0 +1,76 @@
+{
+    "Slide1" : [
+            {
+                "id": 1,
+                "imageSrc": "./images/6undr.jpeg",
+                "title": "6 Underground"
+            },
+            {
+                "id": 2,
+                "imageSrc": "./images/battle.jpeg",
+                "title": "Alita-The Battle Angel"
+            },
+            {
+                "id": 3,
+                "imageSrc": "./images/gentlemn.jpg",
+                "title": "Gentlemen"
+            },
+            {
+                "id": 4,
+                "imageSrc": "./images/madmax.jpg",
+                "title": "MadMax - FurryRoadr"
+            }  
+        
+    ],
+    "Slide2" : [
+        
+                {
+                    "id": 5,
+                    "imageSrc": "./images/ff7.jpg",
+                    "title": "Fast and Furious 7"
+                },
+                {
+                    "id": 6,
+                    "imageSrc": "./images/rocky.png",
+                    "title": "Rocky Hansome"
+                },
+                {
+                    "id": 7,
+                    "imageSrc": "./images/MI_Fallout.jpg",
+                    "title": "Mission Impossible Fallout"
+                },
+                {
+                    "id": 8,
+                    "imageSrc": "./images/kahani.jpg",
+                    "title": "Chhichhore"
+                }
+         
+        
+    ],
+    "Slide3" : [
+        
+                {
+                    "id": 9,
+                    "imageSrc": "./images/tanhaji.jpg",
+                    "title": "Tanhaji The Unsung Warrior"
+                },
+                {
+                    "id": 10,
+                    "imageSrc": "./images/Venom.png",
+                    "title": "Venow"
+                },
+                {
+                    "id": 11,
+                    "imageSrc": "./images/civilwar.jpg",
+                    "title": "Captain America - Civil War"
+                },
+                {
+                    "id": 12,
+                    "imageSrc": "./images/Extraction.jpg",
+                    "title": "Extraction"
+                }
+          
+        
+    ]
+    
+}

@@ -1,0 +1,76 @@
+{
+    "Slide1" : [
+            {
+                "id": 1,
+                "imageSrc": "./images/hunters.jpg",
+                "title": "Hunters"
+            },
+            {
+                "id": 2,
+                "imageSrc": "./images/punisher.jpg",
+                "title": "Punisher"
+            },
+            {
+                "id": 3,
+                "imageSrc": "./images/blackclover.jpg",
+                "title": "Black Clover"
+            },
+            {
+                "id": 4,
+                "imageSrc": "./images/ldr.jpg",
+                "title": "Love, Death + Plus"
+            }  
+        
+    ],
+    "Slide2" : [
+        
+                {
+                    "id": 5,
+                    "imageSrc": "./images/cursed.jpg",
+                    "title": "Cursed"
+                },
+                {
+                    "id": 6,
+                    "imageSrc": "./images/kingdom.jpg",
+                    "title": "Kingdom"
+                },
+                {
+                    "id": 7,
+                    "imageSrc": "./images/peakyblinders.jpg",
+                    "title": "Peaky Blinders"
+                },
+                {
+                    "id": 8,
+                    "imageSrc": "./images/The_Family_Man.jpeg",
+                    "title": "The Family Man"
+                }
+         
+        
+    ],
+    "Slide3" : [
+        
+                {
+                    "id": 9,
+                    "imageSrc": "./images//witcher.png",
+                    "title": "The Witcher"
+                },
+                {
+                    "id": 10,
+                    "imageSrc": "./images/wu.jpg",
+                    "title": "WU Assasins"
+                },
+                {
+                    "id": 11,
+                    "imageSrc": "./images/watchmen.png",
+                    "title": "WatchMen"
+                },
+                {
+                    "id": 12,
+                    "imageSrc": "./images/moneyheist.jpg",
+                    "title": "Money Heist"
+                }
+          
+        
+    ]
+    
+}
